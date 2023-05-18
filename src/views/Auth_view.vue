@@ -2,14 +2,14 @@
     <div id="auth">
         <div class="form" v-if="login_form_active">
             <Text_input label="Логин" v-model="login" />
-            <Text_input label="Пароль" v-model="password" />
+            <Text_input type="password" label="Пароль" v-model="password" />
             <Text_button text="Вход" @click="do_login" />
             <p @click="switch_to_register">У меня нет учётной записи</p>
         </div>
         <div class="form" v-if="!login_form_active">
             <Text_input label="Логин" v-model="login" />
             <Text_input label="Имя" v-model="name" />
-            <Text_input label="Пароль" v-model="password" />
+            <Text_input type="password" label="Пароль" v-model="password" />
             <Text_button text="Регистрация" @click="do_register" />
             <p @click="switch_to_login">У меня есть учётная запись</p>
         </div>
