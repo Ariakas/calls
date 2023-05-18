@@ -26,7 +26,8 @@
                 switch (true) {
                     case $name === "favicon.ico":
                     case $name === "fav.svg": {
-                        include "dist/fav.svg";
+                        header("Content-Type: image/svg+xml");
+                        echo file_get_contents("dist/fav.svg");
                     } break;
                     case $name === "js": {
                         header("Content-Type: application/javascript");
