@@ -1,0 +1,13 @@
+{
+    "name": "test/test",
+    "require": {
+        "ext-json": "*",
+        "ext-mysqli": "*",
+        "ext-fileinfo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "api"
+        }
+    }
+}
