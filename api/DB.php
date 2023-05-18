@@ -9,7 +9,8 @@ class DB {
     public mysqli $link;
 
     public function __construct() {
-        $this->link = new mysqli("localhost", "root", "", "pract_calls");
+        $config = new Config();
+        $this->link = new mysqli($config->get_db_host(), $config->get_db_user(), $config->get_db_pass(), $config->get_db_name());
     }
 
     private function escape_all(&...$params) {
