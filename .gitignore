@@ -23,3 +23,7 @@ pnpm-debug.log*
 
 #composer
 vendor
+
+#config
+rtc_config.json
+db_config.json
