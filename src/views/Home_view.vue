@@ -22,6 +22,7 @@ import Text_button from "@/components/Text_button.vue";
 import AgoraRTC from "agora-rtc-sdk-ng";
 import {mapGetters} from "vuex";
 import request from "@/functions/Fetch";
+import {markRaw} from "vue";
 
 export default {
     name: 'HomeView',
@@ -61,8 +62,8 @@ export default {
         async connect() {
             this.connected = true;
             await this.agoraEngine.join(this.options.appId, this.options.channel, this.options.token, this.get_user_id);
-            this.channelParameters.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-            this.channelParameters.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+            this.channelParameters.localAudioTrack = markRaw(await AgoraRTC.createMicrophoneAudioTrack());
+            this.channelParameters.localVideoTrack = markRaw(await AgoraRTC.createCameraVideoTrack());
             await this.agoraEngine.publish([this.channelParameters.localAudioTrack, this.channelParameters.localVideoTrack]);
             this.channelParameters.localVideoTrack.play(this.$refs.local.querySelector("div"));
             if (!this.is_host) {
@@ -92,7 +93,7 @@ export default {
                     }).then(response => {
                         this.options.token = response.detail;
                         this.link = location.href;
-                        this.agoraEngine = AgoraRTC.createClient({mode: "rtc", codec: "vp8"});
+                        this.agoraEngine = markRaw(AgoraRTC.createClient({mode: "rtc", codec: "vp8"}));
                         this.$refs.remote.append(document.createElement("div"));
                         this.$refs.local.append(document.createElement('div'));
 
@@ -122,7 +123,7 @@ export default {
                 }).then(response => {
                     this.options.token = response.detail;
                     this.link = `${location.href}#${this.hash}`;
-                    this.agoraEngine = AgoraRTC.createClient({mode: "rtc", codec: "vp8"});
+                    this.agoraEngine = markRaw(AgoraRTC.createClient({mode: "rtc", codec: "vp8"}));
                     this.$refs.remote.append(document.createElement("div"));
                     this.$refs.local.append(document.createElement('div'));
 
