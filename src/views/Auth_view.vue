@@ -20,6 +20,7 @@
 import Text_input from "@/components/Text_input.vue";
 import Text_button from "@/components/Text_button.vue";
 import request from "@/functions/Fetch";
+import {markRaw} from "vue";
 export default {
     name: "Auth_view",
     data() {
@@ -52,7 +53,7 @@ export default {
                 password: this.password
             }).then(response => {
                 if (response.status === "success") {
-                    this.$store.commit("set_user_id", response.detail);
+                    this.$store.commit("set_user_id", markRaw(response.detail));
                     this.$router.push("/");
                 }
                 else {
@@ -79,7 +80,7 @@ export default {
     mounted() {
         request("/get_user_id").then(response => {
             if (response.status === "success") {
-                this.$store.commit("set_user_id", response.detail);
+                this.$store.commit("set_user_id", markRaw(response.detail));
                 this.$router.push("/");
             }
         })
